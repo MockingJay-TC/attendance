@@ -35,7 +35,7 @@ export default {
       </div>
     </div>
     <div class="my-1 text-2xl">
-      Students In Class:
+      Students In Class: {{ lister.length }}
       <div class="text-xl my-2 flex gap-1 flex-wrap">
         <ul v-for="stud in lister" :key="stud">
           <li class="tracking-wide text-md list-disc ml-6 uppercase">
