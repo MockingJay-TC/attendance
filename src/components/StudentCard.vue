@@ -1,7 +1,7 @@
 <script>
 import DetailsView from "../views/DetailsView.vue";
 export default {
-  props: ["students"],
+  props: ["students", "search"],
   components: {
     DetailsView,
   },
@@ -10,13 +10,18 @@ export default {
       checkedNames: [],
     };
   },
+  created() {
+    console.log(this.filteredStudents);
+  },
 
   methods: {
     onClickMe(e, student) {
-      if (e.target.checked){
+      if (e.target.checked) {
         this.checkedNames.push(student.name);
-      }else {
-        this.checkedNames = this.checkedNames.filter(name => name != student.name)
+      } else {
+        this.checkedNames = this.checkedNames.filter(
+          (name) => name != student.name
+        );
       }
       this.$emit("studentList", this.checkedNames);
     },
@@ -24,11 +29,22 @@ export default {
       this.$router.push({ name: "details", params: student });
     },
   },
+  computed: {
+    filteredStudents() {
+      return JSON.parse(
+        JSON.stringify(
+          this.students.filter((student) =>
+            student.name.toLowerCase().includes(this.search.toLowerCase())
+          )
+        )
+      );
+    },
+  },
 };
 </script>
 <template>
   <div
-    v-for="student in students"
+    v-for="student in filteredStudents"
     :key="student.id"
     class="w-80 relative shadow-lg p-8 rounded-lg border-t-4 border-[#54c278] bg-gradient-to-b from-[#ffffff] to-[#fefefe]"
   >

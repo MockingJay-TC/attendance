@@ -11,6 +11,7 @@ export default {
     return {
       lister: [],
       students: students,
+      search: "",
     };
   },
   methods: {
@@ -31,6 +32,8 @@ export default {
         <input
           class="border py-2 px-3 rounded-md w-[250px] outline-none text-[grey] shadow-sm"
           placeholder="Search..."
+          v-model="search"
+          type="text"
         />
       </div>
     </div>
@@ -45,7 +48,11 @@ export default {
       </div>
     </div>
     <div class="flex flex-wrap gap-5 justify-between">
-      <StudentCard :students="students" @studentList="getList" />
+      <StudentCard
+        :students="students"
+        :search="search"
+        @studentList="getList"
+      />
     </div>
   </div>
 </template>
